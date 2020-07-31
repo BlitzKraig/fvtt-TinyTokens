@@ -1,0 +1,15 @@
+{
+  "name": "TinyTokens",
+  "title": "Tiny Tokens by Blitz",
+  "description": "The Ambient Light & Token Light toolkit to make your scenes pop!",
+  "version": "0.0.1",
+  "author": "Blitzkraig",
+  "scripts": ["./tinytokens.js", "./dependencies/chroma.min.js"],
+  "styles": [],
+  "packs": [],
+  "minimumCoreVersion": "0.6.2",
+  "compatibleCoreVersion": "0.7.0",
+  "url": "https://github.com/BlitzKraig/fvtt-TinyTokens",
+  "manifest": "https://raw.githubusercontent.com/BlitzKraig/fvtt-TinyTokens/master/module.json",
+  "download": "https://github.com/BlitzKraig/fvtt-TinyTokenss/releases/download/latest/tinytokens-release.zip"
+}
