@@ -1,4 +1,4 @@
-// TODO if grid is squares
+// TODO if grid is hexes
 class TinyTokens {
     static skipCounter = 0;
 
@@ -95,7 +95,7 @@ class TinyTokens {
         });
     }
 
-    static async preUpdate(scene, token, changes, options) {
+    static preUpdate(scene, token, changes, options) {
 
         if (options.tinyTokenSkip) {
             return;
@@ -107,15 +107,39 @@ class TinyTokens {
             return;
         }
         if (canvas.tokens.controlled.length > 1) {
+            // Just return for now, until we can work out how to finish the below code
+            return;
+            if (e && !e.shiftKey) {
+                console.log('Dragged');
+                return;
+            }
             if (++TinyTokens.skipCounter >= canvas.tokens.controlled.length) {
                 console.log("SKIPCOUNTER");
                 TinyTokens.skipCounter = 0;
                 // RESOLVE for all controlled tokens
+                let tokenArray = [];
+                let baseTokenPosition = {
+                    x: changes.x || token.x,
+                    y: changes.y || token.y
+                };
                 canvas.tokens.controlled.forEach((token)=>{
-                    
+                    let updates = {}
+                    TinyTokens.Position.center(scene, updates, baseTokenPosition);
+                    token.update(updates, {diff: false, tinyTokenSkip: true});
+                    // tokenArray.push(scene.data.tokens.find((t)=>{
+                    //     return t._id === token.id;
+                    // }))
                 })
+                // tokenArray.forEach((t) => {
+                //     TinyTokens.Position.center(scene, t, baseTokenPosition);
+                //     t.update(t, {diff: false, tinyTokenSkip: true});
+                // })
+                // setTimeout(()=>{
+                // canvas.tokens.updateMany(tokenArray, {diff: false, tinyTokenSkip: true});
+                // }, 100);
+                return false;
             } else {
-                return;
+                return false;
             }
         }
 
@@ -137,7 +161,7 @@ class TinyTokens {
 
         let e = window.event;
         if (e && !e.shiftKey) {
-            console.log('Dragged');
+            // console.log('Dragged');
             let correctedBaseTokenPosition = {
                 x: TinyTokens.Utilities.roundDown(baseTokenPosition.x, scene.data.grid),
                 y: TinyTokens.Utilities.roundDown(baseTokenPosition.y, scene.data.grid)
@@ -148,21 +172,21 @@ class TinyTokens {
                 return t._id !== token._id && t.x >= correctedGridSquare[0] && t.x < correctedGridSquare[1] && t.y >= correctedGridSquare[2] && t.y < correctedGridSquare[3] && t.height <= 0.5 && t.width <= 0.5;
             });
 
-            await TinyTokens.positionTokens(tinyTokensOnSquare, scene, changes, correctedBaseTokenPosition);
+            TinyTokens.positionTokens(tinyTokensOnSquare, scene, changes, correctedBaseTokenPosition);
 
         } else if (!e || !e.shiftKey) {
             var tinyTokensOnSquare = scene.data.tokens.filter((t) => {
                 return t._id !== token._id && t.x >= gridSquare[0] && t.x < gridSquare[1] && t.y >= gridSquare[2] && t.y < gridSquare[3] && t.height <= 0.5 && t.width <= 0.5;
             });
 
-            await TinyTokens.positionTokens(tinyTokensOnSquare, scene, changes, baseTokenPosition);
+            TinyTokens.positionTokens(tinyTokensOnSquare, scene, changes, baseTokenPosition);
         }
 
         var tinyTokensOnPreviousSquare = scene.data.tokens.filter((t) => {
             return t._id !== token._id && t.x >= previousGridSquare[0] && t.x < previousGridSquare[1] && t.y >= previousGridSquare[2] && t.y < previousGridSquare[3] && t.height <= 0.5 && t.width <= 0.5;
         });
 
-        await TinyTokens.positionPreviousTokens(tinyTokensOnPreviousSquare, scene, previousBaseTokenPosition);
+        TinyTokens.positionPreviousTokens(tinyTokensOnPreviousSquare, scene, previousBaseTokenPosition);
 
     };
 
@@ -179,7 +203,7 @@ class TinyTokens {
         }
         // Return if shift is held, we don't want to change the position from user set
         if (window.event && window.event.shiftKey) {
-            console.log("SHIFT");
+            // console.log("SHIFT");
             if (sizeChanged) {
                 // 'Centering' here actually offsets the size change, so the token will be dropped at the mouse point
                 TinyTokens.Position.center(scene, token);
@@ -201,3 +225,5 @@ class TinyTokens {
 
 Hooks.on("preCreateToken", TinyTokens.preCreate);
 Hooks.on("preUpdateToken", TinyTokens.preUpdate);
+// Hooks.on("preUpdateToken", (scene, token, changes, options)=>{ return TinyTokens.preUpdate(scene, token, changes, options);});
+// Hooks.on("preUpdateToken", this.preUpdate.bind(this));
