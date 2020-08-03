@@ -1,8 +1,8 @@
 {
   "name": "TinyTokens",
   "title": "Tiny Tokens by Blitz",
-  "description": "Added support for 'tiny' creature tokens, taking up 1/4 of a square each",
-  "version": "0.0.2",
+  "description": "Support for 'tiny' creature tokens, taking up 1/4 of a square each",
+  "version": "0.0.3",
   "author": "Blitzkraig",
   "scripts": ["./tinytokens.js"],
   "styles": [],

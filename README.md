@@ -1,6 +1,6 @@
 # Tiny Tokens
 
-![TinyTokkens Release](https://github.com/BlitzKraig/fvtt-TinyTokens/workflows/TinyTokens%20Release/badge.svg)
+![TinyTokens Release](https://github.com/BlitzKraig/fvtt-TinyTokens/workflows/TinyTokens%20Release/badge.svg)
 ![Latest Release Download Count](https://img.shields.io/github/downloads/BlitzKraig/fvtt-TinyTokens/latest/tinytokens-release.zip)
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Q5Q01YIEJ)
@@ -20,7 +20,7 @@ Set your tokens Image Width & Height to 0.5 or less
 ## Current Limitations
 
 * Hex-grids are not yet supported
-* Moving multiple tokens at once is not yet supported - This will fall back to core behaviour
+* Moving multiple tokens at once is complicated, and not yet supported - This will fall back to core behaviour
 
 ## Troubleshooting
 
