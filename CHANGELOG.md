@@ -1,3 +1,7 @@
+# 0.0.4 - 2020/08/10 - PF2E Support
+
+* Added support for autosizing PF2E Tiny creature tokens
+
 # 0.0.3 - 2020/08/02 - Initial release
 
 * Automatically spawn 5e tiny creatures as TinyTokens

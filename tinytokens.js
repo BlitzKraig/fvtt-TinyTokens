@@ -122,10 +122,13 @@ class TinyTokens {
                     x: changes.x || token.x,
                     y: changes.y || token.y
                 };
-                canvas.tokens.controlled.forEach((token)=>{
+                canvas.tokens.controlled.forEach((token) => {
                     let updates = {}
                     TinyTokens.Position.center(scene, updates, baseTokenPosition);
-                    token.update(updates, {diff: false, tinyTokenSkip: true});
+                    token.update(updates, {
+                        diff: false,
+                        tinyTokenSkip: true
+                    });
                     // tokenArray.push(scene.data.tokens.find((t)=>{
                     //     return t._id === token.id;
                     // }))
@@ -196,7 +199,10 @@ class TinyTokens {
             x: token.x,
             y: token.y
         }
-        if (game.system.id === "dnd5e" && game.actors.get(token.actorId).data.data.traits.size.toLowerCase() === "tiny" && token.height === 1 && token.width === 1) {
+        if ((game.system.id === "dnd5e" && game.actors.get(token.actorId).data.data.traits.size.toLowerCase() === "tiny") ||
+            // pf2e uses .value, so we can't compare an array
+            (game.system.id === "pf2e" && game.actors.get(token.actorId).data.data.traits.size.value.toLowerCase() === "tiny") &&
+            token.height === 1 && token.width === 1) {
             token.height = 0.5;
             token.width = 0.5;
             sizeChanged = true;

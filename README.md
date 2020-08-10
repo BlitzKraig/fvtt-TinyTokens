@@ -7,7 +7,7 @@
 
 ## Basic configuration
 
-### For dnd5e
+### For dnd5e or pf2e
 
 Spawn a token from an actor with the creature-size 'tiny'
 
